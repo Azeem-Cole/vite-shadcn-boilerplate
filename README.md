@@ -1,20 +1,39 @@
-# Vite Shadcn Boilerplate
+# Vite Shadcn Boilerplate Monorepo
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/your-username/vite-shadcn-boilerplate/blob/main/LICENSE)
 
 ## Overview
 
-Welcome to the Vite Shadcn Boilerplate! This repository serves as a comprehensive starter template for rapidly setting up a Vite project integrated with Shadcn, React, Tailwind CSS, and TypeScript. With this boilerplate, you can jumpstart your development process, saving valuable time on configuration and setup.
+A modern monorepo setup with Vite, React, TypeScript, and shadcn/ui components. This repository serves as a comprehensive starter template for building multiple applications that share common UI components and utilities.
+
+## Structure
+
+```
+├── apps/
+│   ├── website/          # Main web application
+│   └── extension/        # Browser extension
+├── packages/
+│   └── ui/              # Shared UI components
+└── package.json         # Root workspace configuration
+```
 
 ## Features
 
-- **Vite**: Lightning-fast development server and build tool for modern web development.
-- **Shadcn**: A powerful state management library for React, ensuring efficient and predictable state handling.
-- **React**: A popular JavaScript library for building user interfaces.
-- **Tailwind CSS**: A utility-first CSS framework that provides a set of pre-designed styles for rapid UI development.
-- **TypeScript**: A superset of JavaScript that adds static types, enhancing code quality and developer productivity.
+- **Monorepo Architecture**: Organized workspace with shared packages and multiple applications
+- **Vite**: Lightning-fast development server and build tool for modern web development
+- **shadcn/ui**: A collection of re-usable components built using Radix UI and Tailwind CSS
+- **React**: A popular JavaScript library for building user interfaces
+- **Tailwind CSS**: A utility-first CSS framework that provides a set of pre-designed styles for rapid UI development
+- **TypeScript**: A superset of JavaScript that adds static types, enhancing code quality and developer productivity
+- **npm Workspaces**: Efficient dependency management and script execution across packages
 
 ## Getting Started
+
+### Prerequisites
+
+- Node.js 18+ and npm
+
+### Installation
 
 1. **Fork the Repository**: Start by forking this repository to your GitHub account.
 
@@ -24,42 +43,108 @@ Welcome to the Vite Shadcn Boilerplate! This repository serves as a comprehensiv
     git clone https://github.com/your-username/vite-shadcn-boilerplate.git
     ```
 
-3. **Install Dependencies**: Navigate to the project directory and install the required dependencies.
-
     ```bash
     cd vite-shadcn-boilerplate
     npm install
     ```
 
-4. **Run the Development Server**: Launch the development server to start building your application.
+### Development
 
-    ```bash
-    npm run dev
-    ```
+#### Website
 
-5. **Build for Production**: When you're ready to deploy your application, create a production build.
+```bash
+# Run the website development server
+npm run dev:website
+# or simply
+npm run dev
+```
 
-    ```bash
-    npm run build
-    ```
+#### Extension
 
-## Included Libraries
+```bash
+# Run the extension development server
+npm run dev:extension
+```
 
-- **@radix-ui/react-slot**: Component primitives for building unstyled, fully accessible UIs.
-- **class-variance-authority**: A utility for managing conditional CSS class variations.
-- **clsx**: A tiny utility for constructing className strings conditionally.
-- **lucide-react**: A library of simply designed, easily recognizable SVG icons for React.
-- **react**: The JavaScript library for building user interfaces.
-- **react-dom**: Entry point for React applications to interact with the DOM.
-- **tailwind-merge**: Utility functions for merging Tailwind CSS classes.
-- **tailwindcss-animate**: A plugin for animating Tailwind CSS classes.
+### Building
 
-## Development Tools
+#### Build all projects
 
-- **@typescript-eslint/eslint-plugin**: ESLint plugin for TypeScript.
-- **@typescript-eslint/parser**: TypeScript parser for ESLint.
-- **@vitejs/plugin-react**: Vite plugin for React.
-- **autoprefixer**: A PostCSS plugin to parse CSS and add vendor prefixes.
+```bash
+npm run build
+```
+
+#### Build individual projects
+
+```bash
+npm run build:website
+npm run build:extension
+```
+
+### Workspace Management
+
+This project uses npm workspaces to manage multiple packages. Each app and package has its own `package.json` file.
+
+#### Available Scripts
+
+- `npm run dev` - Start website development server
+- `npm run dev:website` - Start website development server
+- `npm run dev:extension` - Start extension development server
+- `npm run build` - Build all projects
+- `npm run build:website` - Build website only
+- `npm run build:extension` - Build extension only
+- `npm run lint` - Lint all projects
+- `npm run clean` - Clean all build outputs
+
+#### Working with Workspaces
+
+```bash
+# Install a dependency to a specific workspace
+npm install lodash --workspace=apps/website
+
+# Run a script in a specific workspace
+npm run build --workspace=apps/extension
+
+# Add a dependency to all workspaces
+npm install --workspaces some-package
+```
+
+## Apps
+
+### Website (`apps/website`)
+
+A React application built with Vite, TypeScript, and Tailwind CSS, featuring shadcn/ui components.
+
+### Extension (`apps/extension`)
+
+A browser extension built with the same tech stack as the website, demonstrating code sharing in a monorepo.
+
+## Packages
+
+### UI (`packages/ui`)
+
+A shared component library containing reusable UI components built with:
+
+- React
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
+- Radix UI primitives
+
+## Development Workflow
+
+1. **Shared Components**: Add reusable components to `packages/ui`
+2. **App-Specific Code**: Keep app-specific code in their respective `apps/` directories
+3. **Cross-Package Dependencies**: Reference shared packages using workspace protocol in package.json
+
+## Technologies
+
+- **Vite** - Build tool and development server
+- **React 18** - UI library
+- **TypeScript** - Type safety
+- **Tailwind CSS** - Utility-first CSS framework
+- **shadcn/ui** - Re-usable components built using Radix UI and Tailwind CSS
+- **npm Workspaces** - Monorepo management
 - **eslint**: A pluggable linting utility for JavaScript and JSX.
 - **eslint-plugin-react-hooks**: ESLint plugin for React hooks.
 - **eslint-plugin-react-refresh**: ESLint plugin for React Refresh.

@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "baseUrl": "./src",
+    "rootDirs": ["./src", "../../packages"],
+    "paths": {
+      "@link-saver/ui": [
+        "../../../packages/@link-saver/ui/src/*"
+      ]
+    }
+  }
+}
