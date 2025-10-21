@@ -1,2 +1,5 @@
-@import "tailwindcss";
+/* @import "tailwindcss";
+@import "tw-animate-css";
+ */
 
+@import "@link-saver/ui/src/index.css";

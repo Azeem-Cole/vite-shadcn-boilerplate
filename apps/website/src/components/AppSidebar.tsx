@@ -13,7 +13,7 @@ import { SidebarNavItem } from "./AppSideBar/NavItem";
 
 export const AppSidebar = () => {
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar side="left" variant="sidebar" collapsible="icon">
       <AppSidebarHeader />
 
       <SidebarContent>

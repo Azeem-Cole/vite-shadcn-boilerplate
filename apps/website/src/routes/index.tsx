@@ -12,7 +12,7 @@ function RouteComponent() {
   const [count, setCount] = useState(0);
 
   return (
-    <div className="w-full border-2">
+    <div className="w-full">
       <div className="flex justify-center">
         <a href="https://vitejs.dev" target="_blank" className="mx-4">
           <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -23,10 +23,7 @@ function RouteComponent() {
       </div>
       <h1 className="text-5xl font-bold mb-6">Vite + React</h1>
       <div className="card">
-        <Button
-          onClick={() => setCount((count) => count + 1)}
-          // className="bg-green-500"
-        >
+        <Button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </Button>
         <p className="mt-4">

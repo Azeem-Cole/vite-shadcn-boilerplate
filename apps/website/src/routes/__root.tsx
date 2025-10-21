@@ -15,12 +15,17 @@ function RootComponent() {
   };
 
   return (
-    <SidebarProvider className="h-full" id="sideBarProvider">
+    <SidebarProvider className="flex w-full" id="sideBarProvider">
       <AppSidebar />
-      <Opener />
+      
+      <main className="flex w-full flex-col">
+        <div>
+          <Opener />
+        </div>
 
-      <main >
-        <Outlet />
+        <div className="text-center flex-1 border rounded">
+          <Outlet />
+        </div>
       </main>
     </SidebarProvider>
   );

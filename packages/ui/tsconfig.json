@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "jsx": "react-jsx",
-    "moduleResolution": "node",
+    "moduleResolution": "nodenext",
+    "module": "nodenext",
     "esModuleInterop": true,
     "isolatedModules": true,
     "allowJs": false,
@@ -9,15 +10,9 @@
     "declarationDir": "dist",
     "emitDeclarationOnly": true,
     "outDir": "dist",
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@/components/*": ["./src/components/*"],
-      "@/components/ui/*": ["./src/components/ui/*"],
-      "@/lib/*": ["./src/lib/*"],
-      "@/lib/utils": ["./src/lib/utils.ts"],
-      "@/routes/*": ["./src/routes/*"],
-      "@/hooks/*": ["./src/hooks/*"]
+      "@/*": ["./*"]
     }
-  },
-  "include": ["src"]
+  }
 }
