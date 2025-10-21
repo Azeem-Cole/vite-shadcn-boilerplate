@@ -5,7 +5,7 @@ import dts from "vite-plugin-dts";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  plugins: [tailwindcss(), dts(), react()],
+  plugins: [tailwindcss(), dts(), react({})],
   resolve: {
     alias: {
       "@": resolve(__dirname, "./"),

@@ -7,6 +7,7 @@ export * from "./components/ui/skeleton";
 export * from "./components/ui/tooltip";
 export * from "./components/ui/card";
 export * from "./components/ui/dropdown-menu";
+export * from "./components/ui/collapsible";
 
 export * from "./hooks/use-mobile";
 export * from "./lib/utils";
