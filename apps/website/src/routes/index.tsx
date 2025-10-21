@@ -12,7 +12,7 @@ function RouteComponent() {
   const [count, setCount] = useState(0);
 
   return (
-    <div>
+    <div className="w-full border-2">
       <div className="flex justify-center">
         <a href="https://vitejs.dev" target="_blank" className="mx-4">
           <img src={viteLogo} className="logo" alt="Vite logo" />
