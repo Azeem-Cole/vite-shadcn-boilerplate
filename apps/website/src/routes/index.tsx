@@ -1,8 +1,12 @@
-import { Button } from "@link-saver/ui";
+import { Button, Input, Label, Spinner } from "@link-saver/ui";
 import { createFileRoute } from "@tanstack/react-router";
-import reactLogo from "./../assets/react.svg";
-import viteLogo from "./../assets/vite.svg";
 import { useState } from "react";
+import { EmptyView } from "../components/index/Empty";
+import { useBookmarks } from "./../utils/bookmarks";
+import { Bookmark } from "./../types/bookmarks";
+import { Items } from "./../components/index/Rows";
+import { getUrlInfo } from "./../utils/favicon";
+import { DropdownMenuCheckboxes } from "./../components/index/Dropdown";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
@@ -10,29 +14,63 @@ export const Route = createFileRoute("/")({
 
 function RouteComponent() {
   const [count, setCount] = useState(0);
+  const { data: bookmarks, isLoading } = useBookmarks();
+
+  if (bookmarks === undefined || bookmarks.length === 0) {
+    return (
+      <div className="flex flex-1 items-center justify-center">
+        <EmptyView />
+      </div>
+    );
+  }
+  if (isLoading) {
+    return (
+      <div className="flex flex-1 items-center justify-center">
+        <Spinner className="size-8 text-green-500" />
+        Loading
+      </div>
+    );
+  }
+
+  const recursiveLinksOnly = ({ bookmarks }: { bookmarks: Bookmark[] }) => {
+    return bookmarks
+      .flatMap((bookmark) => {
+        if (bookmark.children && bookmark.children.length > 0) {
+          return recursiveLinksOnly({ bookmarks: bookmark.children });
+        } else {
+          return bookmark;
+        }
+      })
+      .map((bookmark) => {
+        return {
+          ...bookmark,
+          title: getUrlInfo(bookmark.url || "")?.domain,
+        };
+      });
+  };
+
+  console.log(
+    "bookmarks:",
+    bookmarks[0].children,
+    recursiveLinksOnly({ bookmarks: bookmarks })
+  );
 
   return (
-    <div className="w-full">
-      <div className="flex justify-center">
-        <a href="https://vitejs.dev" target="_blank" className="mx-4">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" className="mx-4">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="w-full flex flex-col items-center justify-center gap-2 p-2">
+      <div className="flex justify-between w-full max-w-3xl m-4">
+        <Input placeholder="Search" />
       </div>
-      <h1 className="text-5xl font-bold mb-6">Vite + React</h1>
-      <div className="card">
-        <Button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </Button>
-        <p className="mt-4">
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+
+      <div className="flex-row flex">
+        <div className="flex gap-2">
+          <DropdownMenuCheckboxes />
+          <Button variant="outline">Recently Added</Button>
+          <Button variant="outline">Last Used</Button>
+        </div>
       </div>
-      <p className="read-the-docs mt-8">
-        Click on the Vite and React logos to learn more
-      </p>
+      {recursiveLinksOnly({ bookmarks }).map((bookmark) => (
+        <Items key={bookmark.id} {...bookmark} />
+      ))}
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { PanelLeftIcon } from "lucide-react";
 
 export const Route = createRootRoute({
   component: RootComponent,
+  notFoundComponent: () => <div>Page Not Found</div>,
 });
 
 function RootComponent() {
@@ -17,13 +18,11 @@ function RootComponent() {
   return (
     <SidebarProvider className="flex w-full" id="sideBarProvider">
       <AppSidebar />
-      
-      <main className="flex w-full flex-col">
-        <div>
-          <Opener />
-        </div>
 
-        <div className="text-center flex-1 border rounded">
+      <main className="flex w-full flex-col gap-2 p-2">
+        <Opener />
+
+        <div className="text-center flex flex-1 border rounded-md">
           <Outlet />
         </div>
       </main>

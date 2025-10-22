@@ -6,7 +6,7 @@ import {
   SidebarMenu,
   SidebarGroupLabel,
 } from "@link-saver/ui";
-import { HomeIcon, LayoutDashboardIcon, SettingsIcon } from "lucide-react";
+import { Folder, HomeIcon, LayoutDashboardIcon, SettingsIcon } from "lucide-react";
 import { AppSidebarFooter } from "./AppSideBar/Footer";
 import { AppSidebarHeader } from "./AppSideBar/Header";
 import { SidebarNavItem } from "./AppSideBar/NavItem";
@@ -21,12 +21,12 @@ export const AppSidebar = () => {
           <SidebarGroupLabel>Main</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              <SidebarNavItem to="" icon={<HomeIcon />} label="Home" />
+              <SidebarNavItem to="/" icon={<HomeIcon />} label="Home" />
 
               <SidebarNavItem
-                to="/dashboard"
-                icon={<LayoutDashboardIcon />}
-                label="Dashboard"
+                to="/folders"
+                icon={<Folder />}
+                label="Folders"
               />
 
               <SidebarNavItem

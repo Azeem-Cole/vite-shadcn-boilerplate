@@ -9,6 +9,12 @@ export * from "./components/ui/card";
 export * from "./components/ui/dropdown-menu";
 export * from "./components/ui/collapsible";
 export * from "./components/ui/breadcrumb";
+export * from "./components/ui/empty";
+export * from "./components/ui/spinner";
+export * from "./components/ui/badge";
+export * from "./components/ui/item";
+export * from "./components/ui/label";
+export * from "./components/ui/dialog";
 
 export * from "./hooks/use-mobile";
 export * from "./lib/utils";
