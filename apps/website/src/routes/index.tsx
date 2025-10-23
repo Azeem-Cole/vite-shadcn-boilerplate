@@ -31,7 +31,10 @@ function RouteComponent() {
       .map((bookmark) => {
         return {
           ...bookmark,
-          title: getUrlInfo(bookmark.url || "")?.domain,
+          title:
+            bookmark.url === bookmark.title
+              ? getUrlInfo(bookmark.url || "")?.domain
+              : bookmark.title,
         };
       });
   };
@@ -66,6 +69,12 @@ function RouteComponent() {
         const dateA = a.dateLastUsed || 0;
         const dateB = b.dateLastUsed || 0;
         return dateB - dateA; // Most recent first
+      });
+    } else if (sortBy === "alphabetical") {
+      links = [...links].sort((a, b) => {
+        const titleA = a.title?.toLowerCase() || "";
+        const titleB = b.title?.toLowerCase() || "";
+        return titleA.localeCompare(titleB);
       });
     }
 
@@ -116,6 +125,14 @@ function RouteComponent() {
               }
             >
               Last Used
+            </Button>
+            <Button
+              variant={sortBy === "alphabetical" ? "default" : "outline"}
+              onClick={() =>
+                setSortBy(sortBy === "alphabetical" ? "none" : "alphabetical")
+              }
+            >
+              Alphabetical
             </Button>
           </div>
         </div>

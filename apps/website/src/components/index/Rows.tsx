@@ -19,19 +19,15 @@ import { Details } from "./LinkDetails";
 import { Bookmark } from "types/bookmarks";
 import { SortOption } from "types/sort";
 
-export const Items = ({
-  id,
-  title,
-  dateAdded,
-  dateLastUsed,
-  url,
-  dateGroupModified,
-  sortOption,
-}: Bookmark & { sortOption: SortOption }) => {
+export const Items = (bookmarks: Bookmark & { sortOption: SortOption }) => {
+  const { title, url, dateAdded, dateLastUsed, sortOption } = bookmarks;
   const temp = getFaviconUrl(url || "");
   return (
     <div className="flex w-full max-w-3xl flex-col gap-2 ">
-      <Item variant="outline" className="overflow-hidden flex flex-row gap-2 shadow-(--shadow-md)">
+      <Item
+        variant="outline"
+        className="overflow-hidden flex flex-row gap-2 shadow-(--shadow-md)"
+      >
         <span className="flex-1 overflow-hidden flex flex-row gap-2">
           <img
             src={temp}
@@ -46,22 +42,24 @@ export const Items = ({
             <ItemTitle>{title}</ItemTitle>
             <ItemDescription className="text-left">{url}</ItemDescription>
             <ItemDescription className="text-left">
-              {new Date(
-                (sortOption === "last-used" ? dateLastUsed : dateAdded) || 0
-              ).toLocaleString("en-US", {
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-                hour: "numeric",
-                minute: "2-digit",
-                hour12: true,
-              })}
+              {(sortOption === "last-used" ||
+                sortOption === "recently-added") &&
+                new Date(
+                  (sortOption === "last-used" ? dateLastUsed : dateAdded) || 0
+                ).toLocaleString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                  hour: "numeric",
+                  minute: "2-digit",
+                  hour12: true,
+                })}
             </ItemDescription>
           </ItemContent>
         </span>
 
         <ItemActions>
-          <Details />
+          <Details {...bookmarks} />
           <Button variant="default">
             {"Go To"}
             <ExternalLinkIcon className="size-4" />

@@ -11,13 +11,17 @@ import {
 } from "@link-saver/ui";
 import { Input } from "@link-saver/ui";
 import { Label } from "@link-saver/ui";
+import { Bookmark } from "types/bookmarks";
+import { LinkDetailsDropdownMenu } from "./LinkDetails/LinkDetailsDropdown";
 
-export const Details = () => {
+export const Details = ({ url, title }: Bookmark) => {
   return (
     <Dialog>
       <form>
         <DialogTrigger asChild>
-          <Button variant="outline" className="shadow-(--shadow-md)">Details</Button>
+          <Button variant="outline" className="shadow-(--shadow-md)">
+            Details
+          </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
@@ -29,12 +33,17 @@ export const Details = () => {
           </DialogHeader>
           <div className="grid gap-4">
             <div className="grid gap-3">
-              <Label htmlFor="name-1">Name</Label>
-              <Input id="name-1" name="name" defaultValue="Pedro Duarte" />
+              <Label htmlFor="title-1">Title</Label>
+              <Input id="title-1" name="title" defaultValue={title} />
             </div>
             <div className="grid gap-3">
-              <Label htmlFor="username-1">Username</Label>
-              <Input id="username-1" name="username" defaultValue="@peduarte" />
+              <Label htmlFor="url-1">URL</Label>
+              <Input id="url-1" name="url" defaultValue={url} />
+            </div>
+
+            <div className="grid gap-3">
+              <Label htmlFor="Tags-1">Tags</Label>
+              <LinkDetailsDropdownMenu />
             </div>
           </div>
           <DialogFooter>

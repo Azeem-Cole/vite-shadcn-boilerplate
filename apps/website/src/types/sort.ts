@@ -1,1 +1,1 @@
-export type SortOption = "none" | "recently-added" | "last-used";
+export type SortOption = "none" | "recently-added" | "last-used" | "alphabetical";
