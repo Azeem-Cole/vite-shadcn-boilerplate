@@ -9,9 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitesRouteImport } from './routes/sites'
 import { Route as FoldersRouteImport } from './routes/folders'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SitesDomainRouteImport } from './routes/sites/$domain'
 
+const SitesRoute = SitesRouteImport.update({
+  id: '/sites',
+  path: '/sites',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FoldersRoute = FoldersRouteImport.update({
   id: '/folders',
   path: '/folders',
@@ -22,35 +29,54 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitesDomainRoute = SitesDomainRouteImport.update({
+  id: '/$domain',
+  path: '/$domain',
+  getParentRoute: () => SitesRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/folders': typeof FoldersRoute
+  '/sites': typeof SitesRouteWithChildren
+  '/sites/$domain': typeof SitesDomainRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/folders': typeof FoldersRoute
+  '/sites': typeof SitesRouteWithChildren
+  '/sites/$domain': typeof SitesDomainRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/folders': typeof FoldersRoute
+  '/sites': typeof SitesRouteWithChildren
+  '/sites/$domain': typeof SitesDomainRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/folders'
+  fullPaths: '/' | '/folders' | '/sites' | '/sites/$domain'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/folders'
-  id: '__root__' | '/' | '/folders'
+  to: '/' | '/folders' | '/sites' | '/sites/$domain'
+  id: '__root__' | '/' | '/folders' | '/sites' | '/sites/$domain'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FoldersRoute: typeof FoldersRoute
+  SitesRoute: typeof SitesRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sites': {
+      id: '/sites'
+      path: '/sites'
+      fullPath: '/sites'
+      preLoaderRoute: typeof SitesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/folders': {
       id: '/folders'
       path: '/folders'
@@ -65,12 +91,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sites/$domain': {
+      id: '/sites/$domain'
+      path: '/$domain'
+      fullPath: '/sites/$domain'
+      preLoaderRoute: typeof SitesDomainRouteImport
+      parentRoute: typeof SitesRoute
+    }
   }
 }
+
+interface SitesRouteChildren {
+  SitesDomainRoute: typeof SitesDomainRoute
+}
+
+const SitesRouteChildren: SitesRouteChildren = {
+  SitesDomainRoute: SitesDomainRoute,
+}
+
+const SitesRouteWithChildren = SitesRoute._addFileChildren(SitesRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FoldersRoute: FoldersRoute,
+  SitesRoute: SitesRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

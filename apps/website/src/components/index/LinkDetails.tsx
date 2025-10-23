@@ -17,7 +17,7 @@ export const Details = () => {
     <Dialog>
       <form>
         <DialogTrigger asChild>
-          <Button variant="outline">Details</Button>
+          <Button variant="outline" className="shadow-(--shadow-md)">Details</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>

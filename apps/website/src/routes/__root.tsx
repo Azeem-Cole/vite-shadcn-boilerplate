@@ -1,5 +1,5 @@
 import { Outlet, createRootRoute } from "@tanstack/react-router";
-import { SidebarProvider, useSidebar } from "@link-saver/ui";
+import { Button, SidebarProvider, useSidebar } from "@link-saver/ui";
 import { AppSidebar } from "./../components/AppSidebar";
 
 import { PanelLeftIcon } from "lucide-react";
@@ -19,10 +19,13 @@ function RootComponent() {
     <SidebarProvider className="flex w-full" id="sideBarProvider">
       <AppSidebar />
 
-      <main className="flex w-full flex-col gap-2 p-2">
-        <Opener />
+      <main className="h-dvh w-dvw flex flex-col flex-1 gap-2 p-2 overflow-hidden ">
+        <div className="flex flex-row gap-2 justify-between">
+          <Opener />
+          <Button>Sync with Browser</Button>
+        </div>
 
-        <div className="text-center flex flex-1 border rounded-md">
+        <div className="text-center flex flex-1 border rounded-md w-full h-full overflow-scroll shadow-(--shadow-md) ">
           <Outlet />
         </div>
       </main>

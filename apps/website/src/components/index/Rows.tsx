@@ -17,6 +17,7 @@ import {
 import { getFaviconUrl } from "./../../utils/favicon";
 import { Details } from "./LinkDetails";
 import { Bookmark } from "types/bookmarks";
+import { SortOption } from "types/sort";
 
 export const Items = ({
   id,
@@ -25,11 +26,12 @@ export const Items = ({
   dateLastUsed,
   url,
   dateGroupModified,
-}: Bookmark) => {
+  sortOption,
+}: Bookmark & { sortOption: SortOption }) => {
   const temp = getFaviconUrl(url || "");
   return (
-    <div className="flex w-full max-w-3xl flex-col gap-2">
-      <Item variant="outline" className="overflow-hidden flex flex-row gap-2">
+    <div className="flex w-full max-w-3xl flex-col gap-2 ">
+      <Item variant="outline" className="overflow-hidden flex flex-row gap-2 shadow-(--shadow-md)">
         <span className="flex-1 overflow-hidden flex flex-row gap-2">
           <img
             src={temp}
@@ -44,7 +46,9 @@ export const Items = ({
             <ItemTitle>{title}</ItemTitle>
             <ItemDescription className="text-left">{url}</ItemDescription>
             <ItemDescription className="text-left">
-              {new Date(dateAdded || 0).toLocaleString("en-US", {
+              {new Date(
+                (sortOption === "last-used" ? dateLastUsed : dateAdded) || 0
+              ).toLocaleString("en-US", {
                 month: "long",
                 day: "numeric",
                 year: "numeric",
