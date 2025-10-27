@@ -8,7 +8,6 @@ export const getFaviconUrl = (url: string) => {
   }
 };
 
-// Extract basic URL information
 export const getUrlInfo = (url: string) => {
   try {
     const urlObj = new URL(url);

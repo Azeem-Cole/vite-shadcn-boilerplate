@@ -1,5 +1,5 @@
 import { Card, Spinner } from "@link-saver/ui";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { EmptyView } from "./../components/index/Empty";
 import { useBookmarks } from "./../utils/bookmarks";
 import { Bookmark } from "./../types/bookmarks";
@@ -11,6 +11,7 @@ export const Route = createFileRoute("/sites")({
 
 function RouteComponent() {
   const { data: bookmarks, isLoading } = useBookmarks();
+  const navigate = Route.useNavigate();
 
   const recursiveLinksOnly = ({ bookmarks }: { bookmarks: Bookmark[] }) => {
     return bookmarks
@@ -77,15 +78,18 @@ function RouteComponent() {
   return (
     <div className="p-4 flex flex-1 flex-col h-full ">
       <h1 className="text-2xl font-bold mb-4">Sites by Domain</h1>
-      {/* <p className="mb-4">
-        Total sites: {allLinksCount} | Unique domains:{" "}
-        {uniqueDomainsArray.length}
-      </p> */}
+
       <div className="gap-4 flex w-full flex-wrap grow flex-1 pb-2 ">
         {uniqueDomainsArray.map((domainGroup) => (
           <Card
             key={domainGroup.domain}
-            className="p-4 border rounded-lg flex-1 justify-between shadow-(--shadow-md)"
+            className="p-4 border rounded-lg flex-1 justify-between shadow-(--shadow-md) cursor-pointer hover:shadow-lg hover:scale-105 hover:border-blue-400 transition-all duration-200"
+            onClick={() =>
+              navigate({
+                to: "/sites/$domain",
+                params: { domain: encodeURIComponent(domainGroup.domain) },
+              })
+            }
           >
             <div className="flex justify-between items-center mb-2">
               <img

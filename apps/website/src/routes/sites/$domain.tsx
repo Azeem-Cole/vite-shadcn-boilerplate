@@ -9,5 +9,7 @@ function RouteComponent() {
     from: "/sites/$domain",
   });
 
-  return <div>Hello "/sites/{domain}"!</div>;
+  const decodedDomain = decodeURIComponent(domain);
+
+  return <div>Hello "/sites/{decodedDomain}"!</div>;
 }
