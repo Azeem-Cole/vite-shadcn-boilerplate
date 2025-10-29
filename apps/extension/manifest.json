@@ -17,7 +17,7 @@
     }
   ],
   "permissions": ["bookmarks", "activeTab", "storage", "contextMenus"],
-  "host_permissions": ["<all_urls>"],
+  "host_permissions": ["<all_urls>", "http://*/*", "https://*/*"],
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'"
   },

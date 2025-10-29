@@ -141,4 +141,29 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
   }
 });
 
+chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
+  if (request.action === "downloadBookmarks") {
+    try {
+      const bookmarks = await chrome.bookmarks.getTree();
+
+      const uploadResponse = await fetch(
+        "http://localhost:3000/api/uploadBookmarks",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ bookmarks }),
+          credentials: "include",
+        }
+      );
+      const result = await uploadResponse.json();
+      sendResponse({ success: true, result });
+    } catch (error) {
+      console.error("Error downloading bookmarks:", error);
+      sendResponse({ success: false, error: error.message });
+    }
+  }
+});
+
 export {};

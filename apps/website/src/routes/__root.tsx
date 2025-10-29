@@ -3,6 +3,7 @@ import { Button, SidebarProvider, useSidebar } from "@link-saver/ui";
 import { AppSidebar } from "./../components/AppSidebar";
 
 import { PanelLeftIcon } from "lucide-react";
+import { BookmarkSyncButton } from "../components/sites/sync";
 
 export const Route = createRootRoute({
   component: RootComponent,
@@ -22,7 +23,7 @@ function RootComponent() {
       <main className="h-dvh w-dvw flex flex-col flex-1 gap-2 p-2 overflow-hidden ">
         <div className="flex flex-row gap-2 justify-between">
           <Opener />
-          <Button>Sync with Browser</Button>
+          <Button onClick={BookmarkSyncButton}>Sync with Browser</Button>
         </div>
 
         <div className="text-center flex flex-1 border rounded-md w-full h-full overflow-scroll shadow-(--shadow-md) ">

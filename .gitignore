@@ -23,3 +23,5 @@ dist-ssr
 *.sln
 *.sw?
 bookmarks-export-2025-10-15.json
+apps/website/localhost-key.pem
+apps/website/localhost-cert.pem

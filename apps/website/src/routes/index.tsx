@@ -107,7 +107,7 @@ function RouteComponent() {
         />
         <div className="flex-row flex">
           <div className="flex gap-2">
-            <DropdownMenuCheckboxes />
+            {/* <DropdownMenuCheckboxes /> */}
             <Button
               variant={sortBy === "recently-added" ? "default" : "outline"}
               onClick={() =>
